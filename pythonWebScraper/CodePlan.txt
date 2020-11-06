@@ -1,0 +1,1 @@
+These programs will create a small database from PolitiFact articles. This database will have 3 fields, the statement being analysed, the politifact rating and the link to the politifact article. 
