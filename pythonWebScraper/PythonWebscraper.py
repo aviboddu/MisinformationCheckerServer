@@ -56,4 +56,4 @@ for i in range(numberOfPages):
         if result[2] != 'Invalid':
             df.loc[len(df.index)] = result#Adds each result to the table if it is not invalid
     URL = getNextPage(URL)#Goes to the next page
-df.to_csv(r'C:\Users\Avinash\Desktop\College\Fall2020\CSE 143 Computer Programming 2\Final Project\PolitifactData\Database.csv', index=False)#Stores everything as a .csv file
+df.to_csv(r'pythonWebScraper/Database.csv', index=False)#Stores everything as a .csv file
