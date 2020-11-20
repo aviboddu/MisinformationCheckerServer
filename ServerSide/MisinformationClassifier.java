@@ -1,28 +1,48 @@
-import java.util.*;
-
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Scanner;
+import static java.lang.Integer.parseInt;
 
 public class MisinformationClassifier {
-	private Map<String,URLAndType> database;
-	private final Set<String> wordsToRemove;
+
+    private Hashtable<String, URLAndType> table;
+
+    // Constructs a new MisinformationClassifier object using the given file name.
+    public MisinformationClassifier(String fileName) {
+        table = new Hashtable<>();
+        try (Scanner reader = new Scanner(new File(fileName))) {
+            reader.nextLine();
+            while (reader.hasNextLine()) {
+                String arr[] = reader.nextLine().split(",");
+                int length = arr.length;
+                int category = parseInt(arr[length-1].replaceAll(".0", ""));
+                String link = arr[length-2];
+                String statement = arr[0];
+                for (int i = 1; i < length-2; i++) {
+                    statement += "," + arr[i];
+                }
+                URLAndType urlAndType = new URLAndType(link, category);
+                table.put(statement, urlAndType);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }
+
+    // Returns a URLAndType object which contains the relevant article link
+    // and category number associated with the given text.
+    public URLAndType getURLandType(String text) {
+      return table.get(text.replace("\n", ""));
+    }
+    
 	
-	public MisinformationClassifier(String csvFile) {
-		//Read the csv from original, filtering each statement
-		//Fill up wordsToRemove with non-keywords (should be done carefully to avoid duplicates in the map)
+    private String getKeywords(String statement) {
+	String result = "";
+	for(String word:statement.split("\\s+")) {
+		if(!wordsToRemove.contains(word))
+			result += word + " ";
 	}
-	
-	public getURLandType(String statement) {
-		statement = getKeywords(statement);
-		return database.getOrDefault(statement,null);
-	}
-	
-	private String getKeywords(String statement) {
-		String result = "";
-		for(String word:statement.split("\\s+")) {
-			if(!wordsToRemove.contains(word))
-				result += word + " ";
-		}
-		return result.trim();
-	}
+	return result.trim();
+    }
 }
