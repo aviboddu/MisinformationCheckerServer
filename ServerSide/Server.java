@@ -59,7 +59,7 @@ public class Server {
 	//Converts the URLAndType object to a string in json
     private static String json(URLAndType URLandType) {
         StringBuilder results = new StringBuilder();
-        results.append("{\"url\": \"").append(URLandType.getURL()).append("\",\"type\": ").append(URLandType.getType()).append("}");
+        results.append("{\"url\": \"").append(URLandType.getURL()).append("\",\"type\": ").append(URLandType.getCategory()).append("}");
         return results.toString();
     }
 }
