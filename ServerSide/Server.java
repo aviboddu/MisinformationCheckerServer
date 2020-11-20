@@ -54,7 +54,6 @@ public class Server {
 
     private static String json(URLAndType URLandType) {
         StringBuilder results = new StringBuilder();
-        // Step 1: Return the top 5 matches as a JSON object (dict)
         results.append("{\"url\": \"").append(URLandType.getURL()).append("\",\"type\": ").append(URLandType.getType()).append("}");
         return results.toString();
     }
