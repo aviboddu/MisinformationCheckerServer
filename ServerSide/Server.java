@@ -11,7 +11,7 @@ public class Server {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // Step 0: Initialize data for the algorithm
-        MisinformationClassifier classifier = new MisinformationClassifier("Database.csv");
+        MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
         // Create an HttpServer instance on port 8000 accepting up to 100 concurrent connections
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 100);
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
