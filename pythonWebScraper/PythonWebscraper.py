@@ -31,6 +31,7 @@ def processSet(URL):
 def processResult(result):
     quote = result.find('a').text.strip()
     quote = re.sub('"', '',quote)
+    quote = re.sub('\n', '', quote)
     link = "https://www.politifact.com" + result.find('a')['href']
     image = result.find('img')['alt']
     
@@ -56,4 +57,4 @@ for i in range(numberOfPages):
         if result[2] != 'Invalid':
             df.loc[len(df.index)] = result#Adds each result to the table if it is not invalid
     URL = getNextPage(URL)#Goes to the next page
-df.to_csv(r'pythonWebScraper/Database.csv', index=False)#Stores everything as a .csv file
+df.to_csv(r'Database.csv', index=False)#Stores everything as a .csv file
