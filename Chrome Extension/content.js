@@ -1,53 +1,49 @@
-//Content.js
-chrome.runtime.onMessage.addListener(gotMessage);
-function gotMessage(message,sender,sendresponse)
-{
-	let paragraphs = document.body.querySelectorAll("*");//This will change to cover more types of text and AJAX requests as well.
-	for(elt of paragraphs)
-	{	
-		if(elt) {
-			sendAndReceiveData(elt);
-		}
-	}
-}
+//content.js
 
-function sendAndReceiveData(elt) {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			changeHTML(this,elt);
-		}
-	}
-	//This URL will change, right now it's just the local host (This URL change will solve the CORS issue, and will happen when the server is no longer local)
-	URL = 'http://127.0.0.1:8000/query?s=' + elt;
-	xhttp.open("GET",URL,true);
-	xhttp.send();
-}
-
-function changeHTML(xhttp,elt) {
-	misinformationType = JSON.parse(xhttp.responseText);
-	if(misinformationType && misinformationType["items"][0]) {
+$('*').each(function(index) {
+	var t = $(this).html();
+	var URL = 'http://127.0.0.1:8000/query?s=' + t;
+	$.get(URL,function(data,status,xhr) {
+		var misinformationType = JSON.parse(xhr.responseText);
+		if(misinformationType && misinformationType["items"][0]) {
 		switch(misinformationType["items"][0].type) {
 			case 0:
-				elt.style['color'] = '#FF0000';
+				$(this).addClass("marked");
 				break;
 			case 1:
-				elt.style['color'] = '#FFA500';
+				$(this).addClass("marked");
 				break;
 			case 2:
-				elt.style['color'] = '#FFFF00';
+				$(this).addClass("marked");
+				$(this).prepend(`<mark>`);
+				$(this).append(`</mark>`);
 				break;
 			case 3:
-				elt.style['color'] = '#FF009A';
+				$(this).addClass("marked");
 				break;
 			case 4:
-				elt.style['color'] = '#00FFDE';
+				$(this).addClass("marked");
 				break;
 			case 5:
-				elt.style['color'] = '#00FF00';
+				$(this).addClass("marked");
 				break;
 			default:
+				$(this).addClass("marked");
 				break;
 		}
-	}
+	}});
+});
+
+function modify() {
+	$('*').bind('DOMSubtreeModified.event1',DOMModificationHandler);
 }
+
+function DOMModificationHandler(){
+    $(this).unbind('DOMSubtreeModified.event1');
+    setTimeout(function(){
+        modify();
+        $('*').bind('DOMSubtreeModified.event1',
+                                   DOMModificationHandler);
+    },10);
+}
+$('*').bind('DOMSubtreeModified.event1',DOMModificationHandler);

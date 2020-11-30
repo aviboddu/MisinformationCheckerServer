@@ -4,14 +4,18 @@
 "description": "Testing Plugin",
 "version": "1.0",
 "permissions": [
-	"<all_urls>"
+	"<all_urls>",
+	"tabs",
+	"activeTab",
+	"storage"
   ],
 "content_scripts":[
     {
       "matches":[
         "<all_urls>"
       ],
-      "js": ["content.js"]
+      "js": ["jquery.min.js","content.js"],
+	  "run_at": "document_end"
     }
   ],
 "browser_action": {
