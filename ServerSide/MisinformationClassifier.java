@@ -10,7 +10,7 @@ public class MisinformationClassifier {
 
     // Constructs a new MisinformationClassifier object using the given file name.
     public MisinformationClassifier(String fileName) {
-        table = new Hashtable<>();
+        table = new ConcurrentHashMap<>();
         try (Scanner reader = new Scanner(new File(fileName))) {
             reader.nextLine();
             while (reader.hasNextLine()) {
