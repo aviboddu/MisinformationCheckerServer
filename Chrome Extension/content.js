@@ -2,12 +2,12 @@
 chrome.runtime.onMessage.addListener(gotMessage);
 function gotMessage(message,sender,sendresponse)
 {
-	console.log(message.txt);
-	document.ge
-	let paragraphs = document.getElementsByTagName("*");//This will change to cover more types of text and AJAX requests as well.
+	let paragraphs = document.body.querySelectorAll("*");//This will change to cover more types of text and AJAX requests as well.
 	for(elt of paragraphs)
 	{	
-		sendAndReceiveData(elt);
+		if(elt) {
+			sendAndReceiveData(elt);
+		}
 	}
 }
 
@@ -26,8 +26,6 @@ function sendAndReceiveData(elt) {
 
 function changeHTML(xhttp,elt) {
 	misinformationType = JSON.parse(xhttp.responseText);
-	console.log(xhttp.responseText);
-	console.log(elt);
 	if(misinformationType && misinformationType["items"][0]) {
 		switch(misinformationType["items"][0].type) {
 			case 0:
@@ -37,7 +35,7 @@ function changeHTML(xhttp,elt) {
 				elt.style['color'] = '#FFA500';
 				break;
 			case 2:
-				elt.style['color'] = '#FFF700';
+				elt.style['color'] = '#FFFF00';
 				break;
 			case 3:
 				elt.style['color'] = '#FF009A';
