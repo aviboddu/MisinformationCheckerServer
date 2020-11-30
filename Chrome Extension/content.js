@@ -5,24 +5,29 @@ function gotMessage(message,sender,sendresponse)
 	console.log(message.txt);
 	document.ge
 	let paragraphs = document.getElementsByTagName("*");//This will change to cover more types of text and AJAX requests as well.
+	for(elt of paragraphs)
+	{	
+		sendAndReceiveData(elt);
+	}
+}
+
+function sendAndReceiveData(elt) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			changeHTML(xhttp,elt);
+			changeHTML(this,elt);
 		}
 	}
-	for(elt of paragraphs)
-	{
-		//This URL will change, right now it's just the local host (This URL change will solve the CORS issue, and will happen when the server is no longer local)
-		URL = 'http://127.0.0.1:8000/query?s=' + elt
-		xhttp.open("GET",URL,true);//NEEDS TO BE MADE ASYNCHRONOUS, here it's a simple change from false to true, but server needs to be able to handle async requests
-		xhttp.send();
-	}
+	//This URL will change, right now it's just the local host (This URL change will solve the CORS issue, and will happen when the server is no longer local)
+	URL = 'http://127.0.0.1:8000/query?s=' + elt;
+	xhttp.open("GET",URL,true);
+	xhttp.send();
 }
 
 function changeHTML(xhttp,elt) {
 	misinformationType = JSON.parse(xhttp.responseText);
 	console.log(xhttp.responseText);
+	console.log(elt);
 	if(misinformationType && misinformationType["items"][0]) {
 		switch(misinformationType["items"][0].type) {
 			case 0:
