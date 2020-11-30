@@ -15,7 +15,7 @@ function gotMessage(message,sender,sendresponse)
 	{
 		//This URL will change, right now it's just the local host (This URL change will solve the CORS issue, and will happen when the server is no longer local)
 		URL = 'http://127.0.0.1:8000/query?s=' + elt
-		xhttp.open("GET",URL,false);//NEEDS TO BE MADE ASYNCHRONOUS, here it's a simple change from false to true, but server needs to be able to handle async requests
+		xhttp.open("GET",URL,true);//NEEDS TO BE MADE ASYNCHRONOUS, here it's a simple change from false to true, but server needs to be able to handle async requests
 		xhttp.send();
 	}
 }
