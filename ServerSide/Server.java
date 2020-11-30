@@ -30,7 +30,7 @@ public class Server {
             // Sends the URLAndType as a JSON object
             send(t, "application/json", String.format(QUERY_TEMPLATE, json(URLandType)));
         });
-        server.setExecutor(null);
+        server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
         server.start();
     }
 	
