@@ -13,7 +13,7 @@ public class Server {
         // Step 0: Initialize data for the algorithm
         MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
         // Create an HttpServer instance on port 8000 accepting up to 100 concurrent connections
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 100);
+        HttpServer server = HttpServer.create(new InetSocketAddress(process.env.PORT), 100);
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
         server.createContext("/", (HttpExchange t) -> {
             String html = Files.readString(Paths.get("index.html"));
