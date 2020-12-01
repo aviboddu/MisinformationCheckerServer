@@ -1,34 +1,36 @@
 //content.js
 
-$('*').each(function(index) {
-	var t = $(this).html();
+$('*:not(:has(*:not(:empty)))').each(function(index) {
+	console.log($(this).text());
+	var elem = $(this);
+	var t = $(this).text();
 	var URL = 'http://127.0.0.1:8000/query?s=' + t;
 	$.get(URL,function(data,status,xhr) {
+		console.log(data);
 		var misinformationType = JSON.parse(xhr.responseText);
 		if(misinformationType && misinformationType["items"][0]) {
 		switch(misinformationType["items"][0].type) {
 			case 0:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 			case 1:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 			case 2:
-				$(this).addClass("marked");
-				$(this).prepend(`<mark>`);
-				$(this).append(`</mark>`);
+				elem.addClass("marked");
+				elem.html("<mark>" + elem.html() + "</mark>");
 				break;
 			case 3:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 			case 4:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 			case 5:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 			default:
-				$(this).addClass("marked");
+				elem.addClass("marked");
 				break;
 		}
 	}});
