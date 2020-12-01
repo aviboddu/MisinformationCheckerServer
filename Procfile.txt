@@ -1,1 +1,1 @@
-web:javac Server.java && java Server
+web: javac ServerSide/Server.java && java ServerSide/Server
