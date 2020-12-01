@@ -1,40 +1,59 @@
 //content.js
 
-$('*:not(:has(*:not(:empty)))').each(function(index) {
-	console.log($(this).text());
-	var elem = $(this);
-	var t = $(this).text();
-	var URL = 'http://127.0.0.1:8000/query?s=' + t;
-	$.get(URL,function(data,status,xhr) {
-		console.log(data);
-		var misinformationType = JSON.parse(xhr.responseText);
-		if(misinformationType && misinformationType["items"][0]) {
-		switch(misinformationType["items"][0].type) {
-			case 0:
-				elem.addClass("marked");
-				break;
-			case 1:
-				elem.addClass("marked");
-				break;
-			case 2:
-				elem.addClass("marked");
-				elem.html("<mark>" + elem.html() + "</mark>");
-				break;
-			case 3:
-				elem.addClass("marked");
-				break;
-			case 4:
-				elem.addClass("marked");
-				break;
-			case 5:
-				elem.addClass("marked");
-				break;
-			default:
-				elem.addClass("marked");
-				break;
-		}
-	}});
+$('*:not(:has(*:not(:empty)))').each(async function(index) {
+	htmlText = await buildHTML(splitText($(this).text().toString()));
+	$(this).html(htmlText);
 });
+
+function splitText(t) {
+	matched = t.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
+}
+
+async function buildHTML(textArray) {
+	if(!textArray) {
+		return "";
+	}
+	var c;
+	for(c = 0; c < textArray.length; c++) {
+		if(!textArray[c].includes("{")) {
+			var URL = 'http://127.0.0.1:8000/query?s=' + encodeURI(textArray[c]);
+			var misinformationType = await ajaxCall(URL);
+			if(misinformationType && misinformationType["items"][0]) {
+				switch(misinformationType["items"][0].type) {
+					case 0:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+					case 1:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+					case 2:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+					case 3:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+					case 4:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+					case 5:
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
+						break;
+				}
+			}
+		}
+	}
+	return textArray.join("");
+}
+
+async function ajaxCall(URL) {
+	let result;
+	try {
+		result = await $.ajax(URL,{type:'GET'});
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+}
 
 function modify() {
 	$('*').bind('DOMSubtreeModified.event1',DOMModificationHandler);
