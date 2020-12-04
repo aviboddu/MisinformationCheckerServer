@@ -16,7 +16,7 @@ async function buildHTML(textArray) {
 	var c;
 	for(c = 0; c < textArray.length; c++) {
 		if(!textArray[c].includes("{")) {
-			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(textArray[c]);
+			var URL = 'https://cors-anywhere.herokuapp.com/https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(textArray[c]);
 			var misinformationType = await ajaxCall(URL);
 			if(misinformationType && misinformationType["items"][0]) {
 				switch(misinformationType["items"][0].type) {
