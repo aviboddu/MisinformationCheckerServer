@@ -16,7 +16,7 @@ async function buildHTML(textArray) {
 	var c;
 	for(c = 0; c < textArray.length; c++) {
 		if(!textArray[c].includes("{")) {
-			var URL = 'http://127.0.0.1:8000/query?s=' + encodeURI(textArray[c]);
+			var URL = 'https://politifact-misinformation.herokuapp.com/query?s=' + encodeURI(textArray[c]);
 			var misinformationType = await ajaxCall(URL);
 			if(misinformationType && misinformationType["items"][0]) {
 				switch(misinformationType["items"][0].type) {
