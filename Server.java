@@ -30,7 +30,6 @@ public class Server {
             // Sends the URLAndType as a JSON object
             send(t, "application/json", String.format(QUERY_TEMPLATE, json(URLandType)));
         });
-		t.getResponseHeaders().add("Access-Control-Allow-Origin","*");
         server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());//The server can create children which will run on multiple threads
         server.start();
     }
@@ -50,6 +49,7 @@ public class Server {
     private static void send(HttpExchange t, String contentType, String data)
             throws IOException, UnsupportedEncodingException {
         t.getResponseHeaders().set("Content-Type", contentType);
+		t.getResponseHeaders().add("Access-Control-Allow-Origin","*");
         byte[] response = data.getBytes("UTF-8");
         t.sendResponseHeaders(200, response.length);
         try (OutputStream os = t.getResponseBody()) {
