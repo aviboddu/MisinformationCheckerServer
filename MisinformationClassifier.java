@@ -36,7 +36,7 @@ public class MisinformationClassifier {
     // Returns a URLAndType object which contains the relevant article link
     // and category number associated with the given text.
     public URLAndType getURLandType(String text) {
-      return table.get(text.replace("\n", ""));
+      return table.get(text.trim().replace("\n", ""));
     }
 	
 	private splitStatement(String statement) {
