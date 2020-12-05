@@ -10,9 +10,9 @@ public class Server {
     private static final String QUERY_TEMPLATE = "{\"items\":[%s]}";
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        // Step 0: Initialize data for the algorithm
+        // Initialize data for the algorithm
         MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
-        // Create an HttpServer instance on port 8000 accepting up to 100 concurrent connections
+        // Create an HttpServer instance on $PORT accepting up to 100 concurrent connections
         HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(System.getenv("PORT"))), 100);
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
         server.createContext("/", (HttpExchange t) -> {
@@ -30,7 +30,7 @@ public class Server {
             // Sends the URLAndType as a JSON object
             send(t, "application/json", String.format(QUERY_TEMPLATE, json(URLandType)));
         });
-        server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
+        server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());//The server can create children which will run on multiple threads
         server.start();
     }
 	

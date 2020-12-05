@@ -27,7 +27,7 @@ def processSet(URL):
         listResults.append(processResult(result))
     return listResults
 
-#Processes each article to get the statement, the category and the link
+#Processes one article to get the statement, the category and the link
 def processResult(result):
     quote = result.find('a').text.strip()
     quote = re.sub('"', '',quote)
