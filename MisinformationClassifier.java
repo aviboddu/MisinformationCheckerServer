@@ -24,7 +24,9 @@ public class MisinformationClassifier {
                     statement += "," + arr[i];
                 }
                 URLAndType urlAndType = new URLAndType(link, category);
-                table.put(statement, urlAndType);
+				for(String sentence:splitStatement(statement)) {
+					table.put(sentence, urlAndType);
+				}
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,4 +38,8 @@ public class MisinformationClassifier {
     public URLAndType getURLandType(String text) {
       return table.get(text.replace("\n", ""));
     }
+	
+	private splitStatement(String statement) {
+		return statement.matches("/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g");
+	}
 }
