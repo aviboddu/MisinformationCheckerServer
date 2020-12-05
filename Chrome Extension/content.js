@@ -1,15 +1,18 @@
 //content.js
 
 $('*:not(:has(*:not(:empty)))').each(async function(index) {
+	//Builds and changes the HTML for every leaf of the DOM (excluding empty nodes)
 	htmlText = await buildHTML(splitText($(this).text().toString()));
 	$(this).html(htmlText);
 });
 
 function splitText(t) {
+	//Splits the text into sentences.
 	return t.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
 }
 
 async function buildHTML(textArray) {
+	//Builds the new HTML with CSS, etc. based on the misinformation type from the server
 	if(!textArray) {
 		return "";
 	}
@@ -45,7 +48,7 @@ async function buildHTML(textArray) {
 	return textArray.join("");
 }
 
-async function ajaxCall(URL) {
+async function ajaxCall(URL) {//Sends the request to the server
 	let result;
 	try {
 		result = await $.ajax(URL,{type:'GET'});

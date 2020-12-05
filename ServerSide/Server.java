@@ -10,7 +10,7 @@ public class Server {
     private static final String QUERY_TEMPLATE = "{\"items\":[%s]}";
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        // Step 0: Initialize data for the algorithm
+        // Initialize data for the algorithm
         MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
         // Create an HttpServer instance on port 8000 accepting up to 100 concurrent connections
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 100);

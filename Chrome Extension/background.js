@@ -1,6 +1,6 @@
 //background.js
 console.log("Background running");
-chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {//This will change to include AJAX requests
+chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {//Runs when the page is loaded.
   if (changeInfo.status == 'complete' && tab.active) {
 
     let msg = {
