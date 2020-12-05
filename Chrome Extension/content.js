@@ -6,7 +6,7 @@ $('*:not(:has(*:not(:empty)))').each(async function(index) {
 });
 
 function splitText(t) {
-	matched = t.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
+	return t.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
 }
 
 async function buildHTML(textArray) {
