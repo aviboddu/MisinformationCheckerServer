@@ -14,7 +14,6 @@ public class Server {
         MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
         // Create an HttpServer instance on $PORT accepting up to 100 concurrent connections
         HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(System.getenv("PORT"))), 100);
-		HttpExchange.getResponseHeaders().add("Access-Control-Allow-Origin","*");
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
         server.createContext("/", (HttpExchange t) -> {
             String html = Files.readString(Paths.get("index.html"));
@@ -31,6 +30,7 @@ public class Server {
             // Sends the URLAndType as a JSON object
             send(t, "application/json", String.format(QUERY_TEMPLATE, json(URLandType)));
         });
+		t.getResponseHeaders().add("Access-Control-Allow-Origin","*");
         server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());//The server can create children which will run on multiple threads
         server.start();
     }
