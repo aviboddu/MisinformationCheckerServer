@@ -40,6 +40,6 @@ public class MisinformationClassifier {
     }
 	
 	private splitStatement(String statement) {
-		return statement.matches("/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g");
+		return statement.split("(?<=[.!?:])\\s");
 	}
 }
