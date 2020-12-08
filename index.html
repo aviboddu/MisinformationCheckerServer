@@ -32,6 +32,7 @@
         document.getElementsByTagName('div')[0].innerHTML += "<br>";
       }
     }
+    
     function sendAndReceiveData(elt) {  
 	    var xhttp = new XMLHttpRequest();
 	    URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(elt);
@@ -39,6 +40,7 @@
 	    xhttp.send();
       return xhttp;
     }
+
     function changeHTML(misinformationType) {
 	    if(misinformationType && misinformationType["items"][0]) {
 	    switch(misinformationType["items"][0].type) {
@@ -54,27 +56,54 @@
 		    return '#00FFDE';
 	    case 5:
 		    return '#00FF00';
-	    }
+	      }
+      }
+      return '#000000';
     }
-    return '#000000';
-}
+
   </script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
     * {
       box-sizing: border-box;
     }
-    form {
-      height: 1000vh;
-      width: 1000vw;
+    #input_id{
+      height: 10vh;
+      width: 80%;
+      border-style: solid
+      border-radius: 4px;
+      position: relative;
+      left: 5px;
+      font-size: 18px;
+    }
+    #button{
+      position: relative;
+      left: 5px;
+      display: inline-block;
+      width: 20vh;
+      height:10vh;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+    }
+    h1{
+      position: relative;
+      left:5px;
+      font-family: Arial, sans-serif;
+    }
+    #underForm{
+      position: relative;
+      left: 5px;
+      display: inline-block;
+      font-size: 22px;
+      font-family: Arial, sans-serif;
     }
   </style>
 </head>
 <body>
-  <form>
-    <label for="input_id">Misinformation Checker</label>
-    <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction?">
-    <input type="button" value="Submit" onclick="splitText()" />
+  <h1>Misinformation Checker</h1>
+  <form style = position: relative; left: 20px;>
+    <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction? Paste your line here.">
+    <input type="button" id="button" value="Submit" onclick="splitText()" />
     <div id="underForm"> 
         
     </div>
