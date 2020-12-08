@@ -22,8 +22,6 @@ async function buildHTML(textArray) {
 		if(!(textArray[c] === "")) {
 			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace(/%/g,"")).replace(/[!'()*]/g, (c) => {return '%' + c.charCodeAt(0).toString(16) });
 			var misinformationType = await ajaxCall(URL);
-			console.log(URL);
-			console.log(misinformationType);
 			if(misinformationType && misinformationType["items"][0]) {
 				var urlString = misinformationType["items"][0].url;
 				switch(misinformationType["items"][0].type) {
