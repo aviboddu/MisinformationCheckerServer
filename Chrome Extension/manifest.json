@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+"name": "Misinformation Tracker",
+"description": "Testing Plugin",
+"version": "1.0",
+"permissions": [
+	"<all_urls>",
+	"tabs",
+	"activeTab",
+	"storage",
+	"unlimitedStorage"
+  ],
+"content_scripts":[
+    {
+      "matches":[
+        "<all_urls>"
+      ],
+      "js": ["jquery.min.js","content.js"],
+	  "run_at": "document_end"
+    }
+  ],
+"browser_action": {
+  },
+"background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    }
+}
