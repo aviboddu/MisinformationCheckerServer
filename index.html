@@ -14,7 +14,7 @@
   <script>
     function splitText() {
       var t = document.getElementById('input_id').value;
-      var regex = new RegExp("(?<=[.!?:])\s");
+      var regex = new RegExp("[.!?:]");
       var matched = t.split(regex);
 
       for (index = 0; index < matched.length; index++) {
