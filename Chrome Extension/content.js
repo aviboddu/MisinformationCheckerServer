@@ -22,22 +22,24 @@ async function buildHTML(textArray) {
 		if(!(textArray[c] === "")) {
 			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(textArray[c]);
 			var misinformationType = await ajaxCall(URL);
+			console.log(URL);
+			console.log(misinformationType);
 			if(misinformationType && misinformationType["items"][0]) {
 				switch(misinformationType["items"][0].type) {
 					case 0:
 						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF0000\">"+ textArray[c] + "</a>";
 						break;
 					case 1:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FFA500\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF5454\">"+ textArray[c] + "</a>";
 						break;
 					case 2:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#E7CD59\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#F07627\">"+ textArray[c] + "</a>";
 						break;
 					case 3:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF009A\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#E7CD59\">"+ textArray[c] + "</a>";
 						break;
 					case 4:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#00FFDE\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#C4FF31\">"+ textArray[c] + "</a>";
 						break;
 					case 5:
 						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#00FF00\">"+ textArray[c] + "</a>";
