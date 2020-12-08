@@ -25,22 +25,22 @@ async function buildHTML(textArray) {
 			if(misinformationType && misinformationType["items"][0]) {
 				switch(misinformationType["items"][0].type) {
 					case 0:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF0000\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 					case 1:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FFA500\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 					case 2:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FFFF00\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 					case 3:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF009A\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 					case 4:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#00FFDE\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 					case 5:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#00FF00\">"+ textArray[c] + "</a>";
+						textArray[c] = "<mark>" + textArray[c] + "</mark>";
 						break;
 				}
 			}
