@@ -16,12 +16,20 @@
       var t = document.getElementById('input_id').value;
       var regex = new RegExp("(?<=[.!?:])\s");
       var matched = t.split(regex);
-      
-      for (index = 0; index < matched.length; index++) { 
+
+      for (index = 0; index < matched.length; index++) {
         xhttp = sendAndReceiveData(matched[index]);
         misinformationType = JSON.parse(xhttp.responseText);
-        document.getElementById("alert").style.color = changeHTML(misinformationType);
-        document.getElementById('alert').innerHTML += matched[index];
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(matched[index]);
+        a.appendChild(linkText);
+        a.title = linkText;
+        if(misinformationType && misinformationType["items"][0]){
+          a.href = misinformationType["items"][0].url;
+        }
+        a.style.color = changeHTML(misinformationType);
+        document.getElementsByTagName('div')[0].appendChild(a);
+        document.getElementsByTagName('div')[0].innerHTML += "<br>";
       }
     }
     function sendAndReceiveData(elt) {  
@@ -60,38 +68,17 @@
       box-sizing: border-box;
     }
     form {
-      height: 100vh;
-      width: 100vw;
-    }
-    textarea {
-      border: none;
-      color: #444;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      font-size: 1.5rem;
-      height: 100%;
-      line-height: 1.5;
-      margin: 0;
-      padding: 2rem;
-      resize: none;
-      width: 100%;
-    }
-    textarea:focus {
-      outline: none;
-    }
-    .prediction-false {
-      color: teal;
-    }
-    .prediction-true {
-      color: crimson;
-      text-decoration: line-through;
+      height: 1000vh;
+      width: 1000vw;
     }
   </style>
 </head>
 <body>
   <form>
-    <input type="text" id="input_id" value="">
+    <label for="input_id">Misinformation Checker</label>
+    <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction?">
     <input type="button" value="Submit" onclick="splitText()" />
-    <div id="alert"> 
+    <div id="underForm"> 
         
     </div>
   </form>
