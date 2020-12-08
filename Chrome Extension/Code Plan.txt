@@ -1,4 +1,0 @@
-Creating a branch to make a chrome extension instead of a web app. 
-Three things will be the same: How the text is split up, how the text is sent and received and how the text format changes
-One thing will change: How the text in found and inputted
-As such, this branch will onl contain the thing being changed. When (if) merging, we will combine these 4 things
