@@ -20,7 +20,7 @@ async function buildHTML(textArray) {
 	var c;
 	for(c = 0; c < textArray.length; c++) {
 		if(!(textArray[c] === "")) {
-			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(textArray[c]);
+			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace("%","")).replace(/[!'()*]/g, (c) => {return '%' + c.charCodeAt(0).toString(16) });
 			var misinformationType = await ajaxCall(URL);
 			console.log(URL);
 			console.log(misinformationType);
