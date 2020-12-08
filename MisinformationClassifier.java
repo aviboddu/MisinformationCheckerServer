@@ -31,7 +31,8 @@ public class MisinformationClassifier {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
+		table.remove("");
     }
 
     // Returns a URLAndType object which contains the relevant article link
