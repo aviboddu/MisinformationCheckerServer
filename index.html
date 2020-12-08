@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>Politifact Misinformation Checker</title>
+  <link rel="canonical" href=".">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="description" content="Is your information fact or fiction?">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script>
+    function splitText() {
+      var t = document.getElementById('input_id').value;
+      var regex = new RegExp("(?<=[.!?:])\s");
+      var matched = t.split(regex);
+      
+      for (index = 0; index < matched.length; index++) { 
+        xhttp = sendAndReceiveData(matched[index]);
+        misinformationType = JSON.parse(xhttp.responseText);
+        document.getElementById("alert").style.color = changeHTML(misinformationType);
+        document.getElementById('alert').innerHTML += matched[index];
+      }
+    }
+    function sendAndReceiveData(elt) {  
+	    var xhttp = new XMLHttpRequest();
+	    URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(elt);
+	    xhttp.open("GET",URL,false);
+	    xhttp.send();
+      return xhttp;
+    }
+    function changeHTML(misinformationType) {
+	    if(misinformationType && misinformationType["items"][0]) {
+	    switch(misinformationType["items"][0].type) {
+	    case 0:
+		    return '#FF0000';
+	    case 1:
+		    return '#FFA500';
+	    case 2:
+		    return '#FFFF00';
+	    case 3:
+		    return '#FF009A';
+	    case 4:
+		    return '#00FFDE';
+	    case 5:
+		    return '#00FF00';
+	    }
+    }
+    return '#000000';
+}
+  function giveURL(xhttp){
+
+  }
+  </script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    * {
+      box-sizing: border-box;
+    }
+    form {
+      height: 100vh;
+      width: 100vw;
+    }
+    textarea {
+      border: none;
+      color: #444;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 1.5rem;
+      height: 100%;
+      line-height: 1.5;
+      margin: 0;
+      padding: 2rem;
+      resize: none;
+      width: 100%;
+    }
+    textarea:focus {
+      outline: none;
+    }
+    .prediction-false {
+      color: teal;
+    }
+    .prediction-true {
+      color: crimson;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <input type="text" id="input_id" value="">
+    <input type="button" value="Submit" onclick="splitText()" />
+    <div id="alert"> 
+        
+    </div>
+  </form>
+</body>
+</html>
