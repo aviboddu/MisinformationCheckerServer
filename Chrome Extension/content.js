@@ -31,7 +31,7 @@ async function buildHTML(textArray) {
 						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FFA500\">"+ textArray[c] + "</a>";
 						break;
 					case 2:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FFFF00\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#E7CD59\">"+ textArray[c] + "</a>";
 						break;
 					case 3:
 						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF009A\">"+ textArray[c] + "</a>";
