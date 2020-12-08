@@ -1,7 +1,7 @@
 public class URLAndType {
  
-    private final String url;
-    private final int category;
+    private final String url;//The URL to the Politifact Article about the statement
+    private final int category;//A category representing Politifact's rating about the statement (Pants-On-Fire to True)
     
     // Constructs a URLAndType object which contains the relevant article link the category number of misinformation.
     public URLAndType(String url, int category) {

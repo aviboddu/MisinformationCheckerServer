@@ -14,7 +14,7 @@ public class MisinformationClassifier {
         table = new ConcurrentHashMap<>();
         try (Scanner reader = new Scanner(new File(fileName))) {
             reader.nextLine();
-            while (reader.hasNextLine()) {
+            while (reader.hasNextLine()) {//Reads each line of the csv file and takes it into a HashMap.
                 String arr[] = reader.nextLine().split(",");
                 int length = arr.length;
                 int category = parseInt(arr[length-1].replaceAll(".0", ""));
@@ -25,6 +25,7 @@ public class MisinformationClassifier {
                 }
                 URLAndType urlAndType = new URLAndType(link, category);
 				for(String sentence:splitStatement(statement)) {
+					//Adds each processed statement to the HashMap.
 					table.put(sentence.trim().replace("\n", "").replace("\"",""), urlAndType);
 				}
             }
@@ -36,6 +37,7 @@ public class MisinformationClassifier {
     // Returns a URLAndType object which contains the relevant article link
     // and category number associated with the given text.
     public URLAndType getURLandType(String text) {
+		//Looks for the processed sentence
       return table.get(text.trim().replace("\n", "").replace("\"",""));
     }
 	

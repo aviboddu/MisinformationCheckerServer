@@ -39,7 +39,7 @@ public class Server {
         for (String param : params) {
             String[] pair = param.split("=");
             if (pair.length == 2 && pair[0].equals(key)) {
-                return URLDecoder.decode(pair[1]);
+                return URLDecoder.decode(pair[1]);//Decodes the sentences, which was encoded with a JS URI encoder.
             }
         }
         return "";
