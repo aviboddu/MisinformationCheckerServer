@@ -31,6 +31,7 @@
         document.getElementsByTagName('div')[0].appendChild(a);
         document.getElementsByTagName('div')[0].innerHTML += "<br>";
       }
+      document.getElementById('form_id').reset();
     }
     
     function sendAndReceiveData(elt) {  
@@ -106,7 +107,7 @@
 </head>
 <body>
   <h1>Misinformation Checker</h1>
-  <form>
+  <form id = "form_id">
     <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction? Paste your line here.">
     <input type="button" id="button" value="Submit" onclick="splitText()" />
     <div id="underForm"> 
