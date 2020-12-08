@@ -50,6 +50,7 @@ async function buildHTML(textArray) {
 }
 
 async function ajaxCall(URL) {//Sends the request to the server
+//The use of await and async everywhere is inspired from this article: https://petetasker.com/using-async-await-jquerys-ajax
 	let result;
 	try {
 		result = await $.ajax(URL,{type:'GET'});
@@ -59,6 +60,8 @@ async function ajaxCall(URL) {//Sends the request to the server
 	}
 }
 
+//These are used to handle the server's ajax calls for sites like Twitter.
+//The idea is from this medium article: https://medium.com/@aidobreen/fixing-twitter-with-a-chrome-extension-1f53320f5a01
 function modify() {
 	$('*').bind('DOMSubtreeModified.event1',DOMModificationHandler);
 }
