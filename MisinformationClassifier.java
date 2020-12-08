@@ -39,7 +39,7 @@ public class MisinformationClassifier {
       return table.get(text.trim().replace("\n", ""));
     }
 	
-	private splitStatement(String statement) {
+	private String[] splitStatement(String statement) {
 		return statement.split("(?<=[.!?:])\\s");
 	}
 }
