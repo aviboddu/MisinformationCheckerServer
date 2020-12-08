@@ -8,8 +8,7 @@ $('*:not(:has(*:not(:empty)))').each(async function(index) {
 
 function splitText(t) {
 	//Splits the text into sentences.
-	var regex = new RegExp("[.!?:]");
-    return t.split(regex);
+    return t.split(/[.!?:]/g);
 }
 
 async function buildHTML(textArray) {
