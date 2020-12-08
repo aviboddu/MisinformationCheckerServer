@@ -7,7 +7,7 @@ This project initially had three possible goals:
 </ul>
 At the end, we managed to complete the good and part of the better outcome.
 
-
+<h3>The code for the good outcome</h3>
 When first creating the program, we had 3 different problems to deal with. 
 <ol>
 <li><b>Obtaining the necessary data from Politifact.</b> This was done using a Python webscraper, which would process each webpage in Politifact's most recent articles pages. This would be converted into a .csv format to be processed by our server. Since the webpage we were scraping from was somewhat complicated, we used BeautifulSoup4 to process the HTML, and make it easier to find things. Fortunately, Politifact's frequent use of div made things easy for us. The statements were also processed in order to make it easier to be read by the server.</li>
@@ -16,7 +16,10 @@ When first creating the program, we had 3 different problems to deal with.
 	
 <li><b>Creating the client.</b> The client was an HTML file on the server. This client had to take in text using a form, split the text up properly, send this text to the server, and produce the edited text based on the server's response. The text was split into sentences (on the client and server side) using RegEx. The text was sent to the server using the URL, which would be in this format: [server].com/query?s=[URI-encoded-text]. The text was then sent using synchronous xhttp requests. The server would send the relevant data (the url and type of misinformation) in JSON, which would be parsed and used. Splitting up the sentences were difficult as we had to ensure we split the same way on both the server and client side. The challenge was that the client's sentences may be surrounded by other, unknown text. In order to minimize this issue, we removed certain characters when searching and creating the HashMap, such as % and ".</li>
 </ol>	
-The Chrome extension was definitely quite challenging, and as a result, while the extension is working, <i>it is not ready to be used normally, due to severe memory performance issues.</i> 
+<h3>The code for the better outcome</h3>
+
+The Chrome extension was definitely quite challenging, and as a result, while the extension is working, <i>it is not ready to be used normally, due to severe memory performance issues.</i> </br>
+
 
 The first new challenge of the Chrome extension was being able to take in all the text from a page. While this might seem easy at first, the issue is that modern websites often use a technique called AJAX in order to send and receive data from servers which are not necessarily in the initial HTML. In fact, we tried to deal with this issue using regular JavaScript, but in the end decided to re-do all the extension code using jQuery in order to handle this issue easily. 
 
