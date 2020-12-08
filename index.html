@@ -18,6 +18,7 @@
       var matched = t.split(regex);
 
       for (index = 0; index < matched.length; index++) {
+		matched[index] = matched[index].replace("%","");
         xhttp = sendAndReceiveData(matched[index]);
         misinformationType = JSON.parse(xhttp.responseText);
         var a = document.createElement('a');
@@ -29,7 +30,7 @@
         }
         a.style.color = changeHTML(misinformationType);
         document.getElementsByTagName('div')[0].appendChild(a);
-        document.getElementsByTagName('div')[0].innerHTML += "<br>";
+        document.getElementsByTagName('div')[0].innerHTML += "</br>";
       }
       document.getElementById('form_id').reset();
     }
