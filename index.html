@@ -12,63 +12,68 @@
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <script>
+    <!-- Function that splits the text, attaches the link, and colors the text-->
     function splitText() {
-      var t = document.getElementById('input_id').value;
-      var regex = new RegExp("[.!?:]");
-      var matched = t.split(regex);
-
-      for (index = 0; index < matched.length; index++) {
+      	var t = document.getElementById('input_id').value;
+      	<!-- splits the text here -->
+      	var regex = new RegExp("[.!?:]");
+      	var matched = t.split(regex);
+      	<!-- Goes through through the different splitted statements-->
+      	for (index = 0; index < matched.length; index++) {
 		matched[index] = matched[index].replace("%","");
-        xhttp = sendAndReceiveData(matched[index]);
-        misinformationType = JSON.parse(xhttp.responseText);
-        var a = document.createElement('a');
-        var linkText = document.createTextNode(matched[index]);
-        a.appendChild(linkText);
-        a.title = linkText;
-        if(misinformationType && misinformationType["items"][0]){
-          a.href = misinformationType["items"][0].url;
-        }
-        a.style.color = changeHTML(misinformationType);
-        document.getElementsByTagName('div')[0].appendChild(a);
-        document.getElementsByTagName('div')[0].innerHTML += "</br>";
-      }
-      document.getElementById('form_id').reset();
+        	xhttp = sendAndReceiveData(matched[index]);
+        	misinformationType = JSON.parse(xhttp.responseText);
+        	var a = document.createElement('a');
+        	var linkText = document.createTextNode(matched[index]);
+        	a.appendChild(linkText);
+        	a.title = linkText;
+        	if(misinformationType && misinformationType["items"][0]){
+          		a.href = misinformationType["items"][0].url;
+        	}
+        	a.style.color = changeHTML(misinformationType);
+        	document.getElementsByTagName('div')[0].appendChild(a);
+        	document.getElementsByTagName('div')[0].innerHTML += "</br>";
+      	}
+      	document.getElementById('form_id').reset();
     }
     
+    <!-- Function that sends the statement to the server and returns and xhttp object -->
     function sendAndReceiveData(elt) {  
-	    var xhttp = new XMLHttpRequest();
-	    URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(elt);
-	    xhttp.open("GET",URL,false);
-	    xhttp.send();
-      return xhttp;
+	var xhttp = new XMLHttpRequest();
+	URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(elt);
+	xhttp.open("GET",URL,false);
+	xhttp.send();
+	return xhttp;
     }
 
+    <!-- Checks the xhttp file to check type of misinformation and gives corresponding color -->
     function changeHTML(misinformationType) {
-	    if(misinformationType && misinformationType["items"][0]) {
-	    switch(misinformationType["items"][0].type) {
-	    case 0:
+	if(misinformationType && misinformationType["items"][0]) {
+		switch(misinformationType["items"][0].type) {
+	    	case 0:
 		    return '#FF0000';
-	    case 1:
+	    	case 1:
 		    return '#FF5454';
-	    case 2:
+	    	case 2:
 		    return '#F07627';
-	    case 3:
+	    	case 3:
 		    return '#E7CD59';
-	    case 4:
+	    	case 4:
 		    return '#C4FF31';
-	    case 5:
+	    	case 5:
 		    return '#00FF00';
-	      }
-      }
-      return '#000000';
+	      	}
+      	}
+      	return '#000000';
     }
-
   </script>
+	
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
     * {
       box-sizing: border-box;
     }
+  <!-- CSS styling for all elements on the page -->
     #input_id{
       height: 10vh;
       width: 80%;
