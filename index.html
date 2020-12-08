@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>Politifact Misinformation Checker</title>
+  <link rel="canonical" href=".">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="description" content="Is your information fact or fiction?">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script>
+    function splitText() {
+      var t = document.getElementById('input_id').value;
+      var regex = new RegExp("(?<=[.!?:])\s");
+      var matched = t.split(regex);
+
+      for (index = 0; index < matched.length; index++) {
+        xhttp = sendAndReceiveData(matched[index]);
+        misinformationType = JSON.parse(xhttp.responseText);
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(matched[index]);
+        a.appendChild(linkText);
+        a.title = linkText;
+        if(misinformationType && misinformationType["items"][0]){
+          a.href = misinformationType["items"][0].url;
+        }
+        a.style.color = changeHTML(misinformationType);
+        document.getElementsByTagName('div')[0].appendChild(a);
+        document.getElementsByTagName('div')[0].innerHTML += "<br>";
+      }
+    }
+    function sendAndReceiveData(elt) {  
+	    var xhttp = new XMLHttpRequest();
+	    URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURI(elt);
+	    xhttp.open("GET",URL,false);
+	    xhttp.send();
+      return xhttp;
+    }
+    function changeHTML(misinformationType) {
+	    if(misinformationType && misinformationType["items"][0]) {
+	    switch(misinformationType["items"][0].type) {
+	    case 0:
+		    return '#FF0000';
+	    case 1:
+		    return '#FFA500';
+	    case 2:
+		    return '#FFFF00';
+	    case 3:
+		    return '#FF009A';
+	    case 4:
+		    return '#00FFDE';
+	    case 5:
+		    return '#00FF00';
+	    }
+    }
+    return '#000000';
+}
+  </script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    * {
+      box-sizing: border-box;
+    }
+    form {
+      height: 1000vh;
+      width: 1000vw;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label for="input_id">Misinformation Checker</label>
+    <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction?">
+    <input type="button" value="Submit" onclick="splitText()" />
+    <div id="underForm"> 
+        
+    </div>
+  </form>
+</body>
+</html>
