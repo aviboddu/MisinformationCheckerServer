@@ -26,7 +26,7 @@ public class MisinformationClassifier {
                 URLAndType urlAndType = new URLAndType(link, category);
 				for(String sentence:splitStatement(statement)) {
 					//Adds each processed statement to the HashMap.
-					table.put(sentence.trim().replace("\n", "").replace("\"",""), urlAndType);
+					table.put(sentence.trim().replace("\n", "").replace("\"","").replace("%",""), urlAndType);
 				}
             }
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class MisinformationClassifier {
     // and category number associated with the given text.
     public URLAndType getURLandType(String text) {
 		//Looks for the processed sentence
-      return table.get(text.trim().replace("\n", "").replace("\"",""));
+      return table.get(text.trim().replace("\n", "").replace("\"","").replace("%",""));
     }
 	
 	private String[] splitStatement(String statement) {
