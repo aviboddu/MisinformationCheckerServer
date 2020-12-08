@@ -20,29 +20,30 @@ async function buildHTML(textArray) {
 	var c;
 	for(c = 0; c < textArray.length; c++) {
 		if(!(textArray[c] === "")) {
-			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace("%","")).replace(/[!'()*]/g, (c) => {return '%' + c.charCodeAt(0).toString(16) });
+			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace(/%/g,"")).replace(/[!'()*]/g, (c) => {return '%' + c.charCodeAt(0).toString(16) });
 			var misinformationType = await ajaxCall(URL);
 			console.log(URL);
 			console.log(misinformationType);
 			if(misinformationType && misinformationType["items"][0]) {
+				var urlString = misinformationType["items"][0].url;
 				switch(misinformationType["items"][0].type) {
 					case 0:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF0000\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#FF0000\">"+ textArray[c] + "</a>";
 						break;
 					case 1:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#FF5454\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#FF5454\">"+ textArray[c] + "</a>";
 						break;
 					case 2:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#F07627\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#F07627\">"+ textArray[c] + "</a>";
 						break;
 					case 3:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#E7CD59\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#E7CD59\">"+ textArray[c] + "</a>";
 						break;
 					case 4:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#C4FF31\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#C4FF31\">"+ textArray[c] + "</a>";
 						break;
 					case 5:
-						textArray[c] = "<a href=\"" + misinformationType["items"][0].url + "\" style=\"color:#00FF00\">"+ textArray[c] + "</a>";
+						textArray[c] = "<a href=\"" + urlString + "\" style=\"color:#00FF00\">"+ textArray[c] + "</a>";
 						break;
 				}
 			}
