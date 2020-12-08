@@ -20,8 +20,8 @@
       	var matched = t.split(regex);
       	<!-- Goes through through the different splitted statements-->
       	for (index = 0; index < matched.length; index++) {
-		matched[index] = matched[index].replace("%","");
-        	xhttp = sendAndReceiveData(matched[index]);
+		var txt = new String(matched[index]).replace(/[^\w\s]/g,"").replace(/\s+/g," ");
+        	xhttp = sendAndReceiveData(txt);
         	misinformationType = JSON.parse(xhttp.responseText);
         	var a = document.createElement('a');
         	var linkText = document.createTextNode(matched[index]);
