@@ -47,13 +47,13 @@
 	    case 0:
 		    return '#FF0000';
 	    case 1:
-		    return '#FFA500';
+		    return '#FF5454';
 	    case 2:
-		    return '#E7CD59';
+		    return '#F07627';
 	    case 3:
-		    return '#FF009A';
+		    return '#E7CD59';
 	    case 4:
-		    return '#00FFDE';
+		    return '#C4FF31';
 	    case 5:
 		    return '#00FF00';
 	      }
@@ -97,16 +97,56 @@
       font-size: 22px;
       font-family: Arial, sans-serif;
     }
+    table, th, td {
+      border: 1px solid black;
+      font-size: 23px;
+      font-family: Arial, sans-serif;
+    }
   </style>
 </head>
 <body>
   <h1>Misinformation Checker</h1>
-  <form style = position: relative; left: 20px;>
+  <form>
     <input type="text" id="input_id" value="" placeholder="Is your fact truth or fiction? Paste your line here.">
     <input type="button" id="button" value="Submit" onclick="splitText()" />
     <div id="underForm"> 
         
     </div>
   </form>
+  <img src="https://www.poynter.org/wp-content/uploads/2018/10/ratings.jpg" alt="Truth-o-Meter" style="width:70vh; float: left">
+  <table>
+  <tr>
+    <th>Misinformation Rating</th>
+    <th>Text Color</th>
+  </tr>
+  <tr>
+    <td>True</td>
+    <td style="color:#00FF00;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>Mostly True</td>
+    <td style="color:#C4FF31;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>Half True</td>
+    <td style="color:#E7CD59;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>Mostly False</td>
+    <td style="color:#F07627;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>False</td>
+    <td style="color:#FF5454;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>Pants On Fire!</td>
+    <td style="color:#FF0000;">TEXT COLOR</td>
+  </tr>
+  <tr>
+    <td>Fact not found/Error</td>
+    <td>TEXT COLOR</td>
+  </tr>
+</table>
 </body>
 </html>
