@@ -20,7 +20,7 @@ async function buildHTML(textArray) {
 	var c;
 	for(c = 0; c < textArray.length; c++) {
 		if(!(textArray[c] === "")) {
-			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace(/%/g,"")).replace(/[!'()*]/g, (c) => {return '%' + c.charCodeAt(0).toString(16) });
+			var URL = 'https://politifactmisinformation.herokuapp.com/query?s=' + encodeURIComponent(textArray[c].replace(/[^\w\s]/g,"").replace(/\s+/g," "));
 			var misinformationType = await ajaxCall(URL);
 			if(misinformationType && misinformationType["items"][0]) {
 				var urlString = misinformationType["items"][0].url;

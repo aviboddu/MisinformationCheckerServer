@@ -8,6 +8,7 @@ import static java.lang.Integer.parseInt;
 public class MisinformationClassifier {
 
     private ConcurrentHashMap<String, URLAndType> table;
+	private String regex = "[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ]";
 
     // Constructs a new MisinformationClassifier object using the given file name.
     public MisinformationClassifier(String fileName) {
@@ -26,7 +27,7 @@ public class MisinformationClassifier {
                 URLAndType urlAndType = new URLAndType(link, category);
 				for(String sentence:splitStatement(statement)) {
 					//Adds each processed statement to the HashMap.
-					table.put(sentence.trim().replaceAll("[\n\"%.!?”]", ""), urlAndType);
+					table.put(sentence.trim().replaceAll("/[^\w\s]/g", "").replace("/\s+/g"," "), urlAndType);
 				}
             }
         } catch (IOException e) {
@@ -38,7 +39,7 @@ public class MisinformationClassifier {
     // and category number associated with the given text.
     public URLAndType getURLandType(String text) {
 		//Looks for the processed sentence
-      return table.get(text.trim().replaceAll("[\n\"%.!?”]", ""));
+      return table.get(text.trim().replaceAll("/[^\w\s]/g", "").replace("/\s+/g"," "));
     }
 	
 	private String[] splitStatement(String statement) {
