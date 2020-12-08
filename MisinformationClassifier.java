@@ -25,7 +25,7 @@ public class MisinformationClassifier {
                 }
                 URLAndType urlAndType = new URLAndType(link, category);
 				for(String sentence:splitStatement(statement)) {
-					table.put(sentence, urlAndType);
+					table.put(sentence.trim().replace("\n", "").replace("\"",""), urlAndType);
 				}
             }
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class MisinformationClassifier {
     // Returns a URLAndType object which contains the relevant article link
     // and category number associated with the given text.
     public URLAndType getURLandType(String text) {
-      return table.get(text.trim().replace("\n", ""));
+      return table.get(text.trim().replace("\n", "").replace("\"",""));
     }
 	
 	private String[] splitStatement(String statement) {
