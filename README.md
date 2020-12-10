@@ -1,5 +1,7 @@
 <h1>User Guide</h1>
 
+<a href="https://drive.google.com/file/d/1j7Kh-EdFQP8PtTYpD_ci0Qv74XVx7nb0/view?usp=sharing">Video</a>
+
 <h3>The Heroku WebApp</h3>
 To use the Heroku application, all you need to do is go to the URL: 
 https://politifactmisinformation.herokuapp.com/
