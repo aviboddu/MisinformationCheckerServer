@@ -3,6 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas
 import re
+import numpy as np
+import os.path
+from os import path
 
 #Functions
 #Returns an integer representing the category of misinformation
@@ -39,7 +42,9 @@ def processResult(result):
 
 #Returns the URL of the following page
 def getNextPage(URL):
-    pageNum = int(URL.split("=")[1]) + 1
+    pageNum = int(URL.split("=")[1])
+    print("Page Number " + str(pageNum) + " checked.")#Print which page was checked to help keep track of progress
+    pageNum = pageNum + 1
     URL = URL.split("=")[0] + "=" + str(pageNum)
     return URL
 
@@ -48,13 +53,29 @@ dict = {'Statement':[],
         'URL':[],
         'Category':[]
         }
-df = pandas.DataFrame(dict)#Creates a table with three columns: the statement, category and link
+if path.exists('Database.csv'):
+    df = pandas.read_csv(r'Database.csv')
+    latestResult = df.iloc[0]
+else:
+    df = pandas.DataFrame(dict)
+    latestResult = ["No File","a",10.0]
+
+df2 = pandas.DataFrame(dict)
 URL = 'https://www.politifact.com/factchecks/list/?page=1'#URL of the first page
-numberOfPages = 150
+numberOfPages = 636
+foundItem = False
 for i in range(numberOfPages):
     results = processSet(URL)#Returns all the results from that URL
     for result in results:
+        if result[0] == latestResult[0]:#If we've reached an already checked statement, won't check any more.
+            foundItem = True
+            break
         if result[2] != 'Invalid':
-            df.loc[len(df.index)] = result#Adds each result to the table if it is not invalid
+            df2.loc[len(df2.index)] = result
+    if foundItem:
+        break
     URL = getNextPage(URL)#Goes to the next page
+df = df2.append(df)
 df.to_csv(r'Database.csv', index=False)#Stores everything as a .csv file
+print("Articles Processed:")
+print(len(df.index))
