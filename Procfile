@@ -1,1 +1,0 @@
-web: javac Server.java && java Server
