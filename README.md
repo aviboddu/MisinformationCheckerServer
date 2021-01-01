@@ -2,6 +2,10 @@
 
 <a href="https://drive.google.com/file/d/1j7Kh-EdFQP8PtTYpD_ci0Qv74XVx7nb0/view?usp=sharing">Video</a>
 
+<p>A program which will take in text and return if it is misinformation, by referencing a database from Politifact. Text will be taken in from the user, and will be displayed differently according to the type of misinformation (Using politifact’s rating scale).</p>
+
+<p>In our digital age of technological advancement and the creation of the internet, finding information is now easier than ever. However, the information isn’t always accurate: the number of fake news and misinformation is now higher than ever, and it’s difficult to distinguish between truth and falsity. Our project aims to help clarify that distinction, by creating an extension that could cross reference information on the internet with trusted sources. </p>
+
 <h3>The Heroku WebApp</h3>
 To use the Heroku application, all you need to do is go to the URL: 
 https://politifactmisinformation.herokuapp.com/
