@@ -1,0 +1,1 @@
+Adjust webscraper to save in a mySQL database rather than a .csv file
