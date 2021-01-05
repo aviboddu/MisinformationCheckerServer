@@ -3,16 +3,13 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.concurrent.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import java.sql.*;
 public class MisinformationClassifier {
 	
 	//Constants
-	private static final String MY_SQL_HOST = System.getenv('MY_SQL_HOST');
-	private static final String MY_SQL_USER = System.getenv('MY_SQL_USER');
-	private static final String MY_SQL_PASSWORD = System.getenv('MY_SQL_PASSWORD');
+	private static final String MY_SQL_HOST = System.getenv("MY_SQL_HOST");
+	private static final String MY_SQL_USER = System.getenv("MY_SQL_USER");
+	private static final String MY_SQL_PASSWORD = System.getenv("MY_SQL_PASSWORD");
 
     private ConcurrentHashMap<String, URLAndType> table;
 

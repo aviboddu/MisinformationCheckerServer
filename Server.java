@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.file.*;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import com.sun.net.httpserver.*;
 
@@ -37,7 +38,7 @@ public class Server {
         server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());//The server can create children which will run on multiple threads
 		Timer update = new Timer(); //A timer to update our classifier periodically
 		ScheduledTask updateClassifier = new ScheduledTask(classifier, DATABASE_NAME, TABLE_NAME);
-		update.schedule(updateClassifier, UPDATE_SECONDS, UPDATE_SECONDS);
+		update.schedule(updateClassifier, 0, UPDATE_SECONDS);
         server.start();
     }
 	
