@@ -3,15 +3,19 @@
 import java.io.*;
 import java.net.*;
 import java.nio.file.*;
+import java.util.Timer;
 
 import com.sun.net.httpserver.*;
 
 public class Server {
     private static final String QUERY_TEMPLATE = "{\"items\":[%s]}";
+	private static final String DATABASE_NAME = "Misinfo_DB";
+	private static final String TABLE_NAME = "Misinfo_T";
+	private static final long UPDATE_SECONDS = TimeUnit.HOURS.toMillis(24);
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // Initialize data for the algorithm
-        MisinformationClassifier classifier = new MisinformationClassifier("pythonWebScraper/Database.csv");
+        MisinformationClassifier classifier = new MisinformationClassifier(DATABASE_NAME, TABLE_NAME);
         // Create an HttpServer instance on $PORT accepting up to 100 concurrent connections
         HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(System.getenv("PORT"))), 100);
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
@@ -31,6 +35,9 @@ public class Server {
             send(t, "application/json", String.format(QUERY_TEMPLATE, json(URLandType)));
         });
         server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());//The server can create children which will run on multiple threads
+		Timer update = new Timer(); //A timer to update our classifier periodically
+		ScheduledTask updateClassifier = new ScheduledTask(classifier, DATABASE_NAME, TABLE_NAME);
+		update.schedule(updateClassifier, UPDATE_SECONDS, UPDATE_SECONDS);
         server.start();
     }
 	
