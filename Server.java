@@ -19,6 +19,11 @@ public class Server {
             String html = Files.readString(Paths.get("index.html"));
             send(t, "text/html; charset=utf-8", html);
         });
+		//Return the style.css file when the html asks (in order to split up the html and css file (hopefully this can be done better)
+		server.createContext("/css", (HttpExchange t) -> {
+            String style = Files.readString(Paths.get("style.css"));
+            send(t, "text/css; charset=utf-8", style);
+        });
         // Return a classification when given the phrase to be classified
         server.createContext("/query", (HttpExchange t) -> {
             String s = parse("s", t.getRequestURI().getQuery());
