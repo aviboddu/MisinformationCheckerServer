@@ -17,9 +17,11 @@ public class Server {
         // Return the index.html file when the browser asks (only for the web app, wouldn't be used for Chrome Extension)
         server.createContext("/", (HttpExchange t) -> {
             String html = Files.readString(Paths.get("index.html"));
+            send(t, "text/html; charset=utf-8", html);
+        });
+		server.createContext("/css", (HttpExchange t) -> {
 			String style = Files.readString(Paths.get("style.css"));
 			send(t, "text/css; charset=utf-8", style);
-            send(t, "text/html; charset=utf-8", html);
         });
         // Return a classification when given the phrase to be classified
         server.createContext("/query", (HttpExchange t) -> {
