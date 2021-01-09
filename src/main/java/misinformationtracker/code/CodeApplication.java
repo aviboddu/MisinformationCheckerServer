@@ -20,19 +20,31 @@ public class CodeApplication {
     public static void main(String[] args) {
         classifier = new MisinformationClassifier();
         SpringApplication.run(CodeApplication.class, args);
+        classifier.updateTable(true);
     }
 
     @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
-    public URLAndType getQuery(@RequestParam(value = "s") String query) {
-        return classifier.getURLandType(
-                query.trim().replaceAll("[^\\w\\s]", "").replaceAll("\\s+", " "));
+    public String getQuery(@RequestParam(value = "s") String query) {
+        return JSON(classifier.getURLandType(
+                query.trim().replaceAll("[^\\w\\s]", "").replaceAll("\\s+", " ")));
 
     }
 
-    @Scheduled(fixedDelay = 86400000, initialDelay = 86400000)
+    private String JSON(URLAndType urlAndType) {
+        if(urlAndType == null)
+            return "{}";
+        return "{\"url\":\"" + urlAndType.getURL() + "\",\"type\":" + urlAndType.getCategory() + "}";
+    }
+
+    @GetMapping(value = "/list")
+    public String listQueries() {
+        return classifier.getList().toString();
+    }
+
+    @Scheduled(fixedDelay = 10000, initialDelay = 86400000)
     @Async
     public void updateData() {
-        classifier.updateTable();//Updates the classifier
+        classifier.updateTable(false);//Updates the classifier
     }
 
 }
